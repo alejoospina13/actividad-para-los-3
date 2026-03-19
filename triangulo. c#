@@ -1,0 +1,54 @@
+using System;
+
+class TrianguloClasificador
+{
+    static void Main()
+    {
+        Console.WriteLine("=== Clasificador de Triángulos ===\n");
+
+        Console.Write("Ingresa el lado A: ");
+        double a = double.Parse(Console.ReadLine());
+
+        Console.Write("Ingresa el lado B: ");
+        double b = double.Parse(Console.ReadLine());
+
+        Console.Write("Ingresa el lado C: ");
+        double c = double.Parse(Console.ReadLine());
+        
+        if (!EsTrianguloValido(a, b, c))
+        {
+            Console.WriteLine("\nlados ingresados NO forman un triángulo válido.");
+            Console.WriteLine("   (La suma de dos lados debe ser mayor al tercero)");
+            return;
+        }
+        string tipo = ClasificarTriangulo(a, b, c);
+
+        Console.WriteLine($"\n triángulo válido con lados: {a}, {b}, {c}");
+        Console.WriteLine($"Tipo: {tipo}");
+        Console.WriteLine($"\n{Descripcion(tipo)}");
+    }
+
+    static bool EsTrianguloValido(double a, double b, double c)
+    {
+        return (a + b > c) && (a + c > b) && (b + c > a)
+               && a > 0 && b > 0 && c > 0;
+    }
+
+    static string ClasificarTriangulo(double a, double b, double c)
+    {
+        bool ab = Math.Abs(a - b) < 1e-9;
+        bool bc = Math.Abs(b - c) < 1e-9;
+        bool ac = Math.Abs(a - c) < 1e-9;
+
+        if (ab && bc)           return "Equilátero";
+        if (ab || bc || ac)     return "Isósceles";
+        return "Escaleno";
+    }
+
+    static string Descripcion(string tipo) => tipo switch
+    {
+        "Equilátero" => "   Los 3 lados son IGUALES. Todos sus ángulos miden 60°.",
+        "Isósceles"  => "   Exactamente 2 lados son IGUALES.",
+        "Escaleno"   => "   Los 3 lados son DIFERENTES. Ningún ángulo es igual.",
+    };
+}
