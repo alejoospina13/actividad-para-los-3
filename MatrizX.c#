@@ -1,0 +1,27 @@
+using System;
+class MatrizX
+{
+    static void Main()
+    {
+        int n = 4;
+        bool[,] matriz = new bool[n, n];
+
+      
+        for (int i = 0; i < n; i++)
+        {
+            matriz[i, i]         = true; 
+            matriz[i, n - 1 - i] = true;  
+        }
+
+        // Mostrar la matriz
+        Console.WriteLine("Matriz 4x4 con patrón X:\n");
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write(matriz[i, j] ? " :) " : " ? ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
